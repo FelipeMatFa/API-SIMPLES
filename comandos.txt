@@ -1,0 +1,84 @@
+PASSO A PASSA PARA CRIAR UMA API
+
+
+npm init -y
+
+
+criar um arquivo chamado server.js
+
+npm i express
+
+
+
+No arquivo server.js coloque o conteudo abaixo: 
+import express from 'express'
+const app = express()
+
+depois para criar uma rota/requisição crie o código abaixo:
+app.get('/usuarios', (req, res) => {
+    res.send('Ok, deu bom')
+})
+app.listen(3000)
+
+
+
+depois no arquivo package.json adicione "type":"module",
+{
+  "name": "api",
+  "version": "1.0.0",
+  "type":"module",   <--------- adicionado
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
+
+
+
+e depois é só digitar no terminal node server.js que ele irá rodar o servidor na porta 3000
+e então acessar a porta localhost:3000/usuarios no navegador
+
+
+com o thunder client crie um New request e coloque no link o conteudo abaixo
+http://localhost:3000/usuarios
+
+
+
+depois adicione o post
+import express from 'express'
+
+const app = express()
+
+const users = []
+
+app.post('/usuarios', (req, res) => {
+    console.log(req)
+
+    res.send('Ok post')
+})
+
+app.get('/usuarios', (req, res) => {
+    res.send('Ok, deu bom')
+})
+
+app.listen(3000) 
+
+/*
+    cria nossa api de usuários
+
+    - criar um usuário
+    - Lista todos os usuários
+    - Editar um usuário
+    - Deletar um usuário
+*/
+
+
+comando no terminal para salvar todas as alterações da api 
+node --watch server.js
