@@ -1,6 +1,8 @@
 import express from 'express'
 import dotenv from "dotenv";
 import { connectMongo } from "./database/mongo.js";
+import User from "./models/User.js";
+
 
 dotenv.config();
 
@@ -11,16 +13,19 @@ connectMongo();
 
 const users = []
 
-app.post('/usuarios', (req, res) => {
+app.post("/users", async (req, res) => {
+  try {
+    const user = await User.create(req.body);
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
-    users.push(req.body)
-
-    res.status(201).json(req.body)
-})
-
-app.get('/usuarios', (req, res) => {
-    res.status(200).json(users)
-})
+app.get("/users", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
 
 app.listen(3000) 
 
@@ -31,9 +36,4 @@ app.listen(3000)
     - Lista todos os usuários
     - Editar um usuário
     - Deletar um usuário
-
-
-    Chave do banco mongoDB
-    Usuário: admin
-    Senha: zm0tKOWESwtHehh8
 */
