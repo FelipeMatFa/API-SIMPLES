@@ -1,7 +1,13 @@
 import express from 'express'
+import dotenv from "dotenv";
+import { connectMongo } from "./database/mongo.js";
+
+dotenv.config();
 
 const app = express()
 app.use(express.json())
+
+connectMongo();
 
 const users = []
 
